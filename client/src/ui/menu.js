@@ -7,6 +7,11 @@ export function showWelcome(){
     console.log("=== Welcome to the Riddle Game ===");
 }
 
+export function showGoodbye(){
+    // Show goodbye message to the user
+    console.log("=== Goodbye, Thank you for using Riddle Game ===");
+}
+
 export function displayMenu(){
     // Display Menu options to the user and return his choice
     console.log("Menu:");

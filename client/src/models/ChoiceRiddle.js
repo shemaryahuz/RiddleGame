@@ -1,4 +1,4 @@
-import Riddle, {getAnswer, showWrong, showCorrect} from "./Riddle.js";
+import Riddle, { getAnswer, showWrong, showCorrect } from "./Riddle.js";
 
 export default class ChoiceRiddle extends Riddle{
     constructor(riddle){
