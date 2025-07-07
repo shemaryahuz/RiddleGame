@@ -3,8 +3,8 @@
 import { question } from "readline-sync";
 import Riddle from "../models/Riddle.js";
 import ChoiceRiddle from "../models/ChoiceRiddle.js";
-import { getRiddles } from "../services/riddleServices.js";
-import { createPlayer } from "../services/playerServices.js";
+import { getRiddles } from "../services/riddleService.js";
+import { createPlayer } from "../services/playerService.js";
 
 function chooseLevel(){
     return question("Choose game level (all/ multi-choices/ easy/ medium/ hard): ")
