@@ -32,20 +32,21 @@ function runLevel(riddles, player){
     }
 }
 
-export function game(){
+export async function game(){
     // main function for the game
 
     // intialize player and level by readlin-sync.question
     const player = createPlayer();
     const level = chooseLevel();
     // intialize riddles filtered by level
-    let riddles = getRiddles().filter(riddle => riddle.level === level);
+    let riddles = await getRiddles();
+    let filteredRiddles = riddles.filter(riddle => riddle.level === level);
     // if level is 'all' or invalid level input, get all riddles
-    if (riddles.length === 0){
-        riddles = getRiddles();
+    if (filteredRiddles.length === 0){
+        filteredRiddles = riddles;
     }
     // call runLevel method
-    runLevel(riddles, player);
+    runLevel(filteredRiddles, player);
     // show player states
     player.showState();
 }

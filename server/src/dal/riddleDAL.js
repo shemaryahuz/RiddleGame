@@ -2,7 +2,7 @@
 
 import fs from "fs/promises";
 
-const PATH = "../../data/riddles.txt";
+const PATH = "././data/riddles.txt";
 
 export async function readRiddels(){
     try{

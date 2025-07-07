@@ -18,6 +18,7 @@ export function showCorrect(){
 
 export default class Riddle{
     constructor(riddle){
+        this.level = riddle.level;
         this.id = riddle.id;
         this.name = riddle.name;
         this.question = riddle.question;

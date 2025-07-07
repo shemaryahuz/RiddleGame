@@ -1,7 +1,7 @@
 // Riddle Game Server
 
 import { createServer } from "http";
-import { getRiddels } from "./src/services/riddleService.js";
+import { getRiddles } from "./src/services/riddleService.js";
 
 const PORT = 3000;
 
@@ -13,13 +13,21 @@ server.listen(PORT, () => {
 });
 
 server.on("request", async (req, res) => {
-    switch (req.url){
-        case "/":
+    try{
+        if (req.url === "/"){
             // if the request'url is the default path, response with message that the server is running
             res.end("Server is running...");
-        case "/riddles":
+        }
+        else if (req.url ===  "/riddles"){
             // if the request'url is whith '/riddles'
-            const riddlesArr = await getRiddels();
-            res.end(JSON.stringify(riddlesArr));
+            const riddlesArr = await getRiddles();
+            const riddlesStr = JSON.stringify(riddlesArr);
+            res.end(riddlesStr);
+        }
+    }
+    catch(err){
+        // if there is an error, log to the console and response with the error;
+        console.error(err);
+        res.end(err);
     }
 })
