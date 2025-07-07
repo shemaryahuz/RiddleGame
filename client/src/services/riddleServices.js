@@ -1,1 +1,171 @@
-// Functions for handling witj Riddles
+// Functions for handling with Riddles
+
+export function getRiddles(){
+    return [
+        {
+            "level": "multi-choices",
+            "id": 1,
+            "name": "Soundless Cry",
+            "question": "What has a neck but no head?",
+            "answer": "bottle",
+            "options": ["bottle", "chair", "snake", "tree"],
+            "Hint": "Often holds liquid."
+        },
+        {
+            "level": "multi-choices",
+            "id": 2,
+            "name": "One-Way Street",
+            "question": "What goes up but never comes down?",
+            "answer": "age",
+            "options": ["balloon", "smoke", "age", "rain"],
+            "Hint": "Everyone gets more of it."
+        },
+        {
+            "level": "multi-choices",
+            "id": 3,
+            "name": "Keeper of Keys",
+            "question": "What has many keys but can't open a single lock?",
+            "answer": "piano",
+            "options": ["door", "piano", "box", "safe"],
+            "Hint": "Makes music."
+        },
+        {
+            level: "multi-choices",
+            "id": 4,
+            "name": "Jumping Jewel",
+            "question": "What has legs but doesn't walk?",
+            "answer": "table",
+            "options": ["table", "cat", "frog", "chair"],
+            "Hint": "Stands still in your room."
+        },
+        {
+            "level": "multi-choices",
+            "id": 5,
+            "name": "Endless Meal",
+            "question": "What eats but is never full?",
+            "answer": "fire",
+            "options": ["lion", "child", "fire", "wind"],
+            "Hint": "Feeds on wood or fuel."
+        },
+        {
+            "level": "easy",
+            "id": 6,
+            "name": "Clapless Time",
+            "question": "What has hands but can't clap?",
+            "answer": "clock",
+            "hint": "It tells you the time, not applause."
+        },
+        {
+            "level": "easy",
+            "id": 7,
+            "name": "Short Life",
+            "question": "I'm tall when I'm young, and I'm short when I'm old. What am I?",
+            "answer": "candle",
+            "hint": "I melt as I age."
+        },
+        {
+            "level": "easy",
+            "id": 8,
+            "name": "Crack to Use",
+            "question": "What has to be broken before you can use it?",
+            "answer": "egg",
+            "hint": "Breakfast ingredient."
+        },
+        {
+            "level": "easy",
+            "id": 9,
+            "name": "Always Ahead",
+            "question": "What's always in front of you but can't be seen?",
+            "answer": "future",
+            "hint": "It hasn't happened yet."
+        },
+        {
+            "level": "easy",
+            "id": 10,
+            "name": "Many Meanings",
+            "question": "What comes once in a minute, twice in a moment, but never in a thousand years?",
+            "answer": "m",
+            "hint": "Look at the letters in the words."
+        },
+        {
+            "level": "medium",
+            "id": 11,
+            "name": "Full of Holes",
+            "question": "What is full of holes but still holds water?",
+            "answer": "sponge",
+            "hint": "You use it for cleaning."
+        },
+        {
+            "level": "medium",
+            "id": 12,
+            "name": "Traveling Man",
+            "question": "I go around the world but stay in a corner. What am I?",
+            "answer": "stamp",
+            "hint": "You find me on mail."
+        },
+        {
+            "level": "medium",
+            "id": 13,
+            "name": "Hungry All the Time",
+            "question": "What has a mouth but never eats?",
+            "answer": "river",
+            "hint": "Natural water body."
+        },
+        {
+            "level": "medium",
+            "id": 14,
+            "name": "Light as a Feather",
+            "question": "What is as light as a feather, yet the strongest person can't hold it for long?",
+            "answer": "breath",
+            "hint": "Exhaling it relieves you."
+        },
+        {
+            "level": "medium",
+            "id": 15,
+            "name": "Growing Number",
+            "question": "The more you take, the more you leave behind. What am I?",
+            "answer": "footsteps",
+            "hint": "You make these when you walk."
+        },
+        {
+            "level": "hard",
+            "id": 16,
+            "name": "Master of Cities",
+            "question": "I have cities, but no houses. I have mountains, but no trees. I have water, but no fish. What am I?",
+            "answer": "map",
+            "hint": "It's a representation of places."
+        },
+        {
+            "level": "hard",
+            "id": 17,
+            "name": "Endless Chain",
+            "question": "What can you catch but not throw?",
+            "answer": "cold",
+            "hint": "You feel sick when you have it."
+        },
+        {
+            "level": "hard",
+            "id": 18,
+            "name": "Dry or Wet",
+            "question": "What gets wetter the more it dries?",
+            "answer": "towel",
+            "hint": "Bathroom essential."
+        },
+        {
+            "level": "hard",
+            "id": 19,
+            "name": "Precious When Broken",
+            "question": "What is so fragile that saying its name breaks it?",
+            "answer": "silence",
+            "hint": "You break it by speaking."
+        },
+        {
+            "level": "hard",
+            "id": 20,
+            "name": "Unseen Companion",
+            "question": "I follow you all the time and copy your every move, but you can't touch me or catch me. What am I?",
+            "answer": "shadow",
+            "hint": "Needs light to exist."
+        }
+    ]
+}
