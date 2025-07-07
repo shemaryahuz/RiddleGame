@@ -1,5 +1,6 @@
 // Functions for game management
 
+import { question } from "readline-sync";
 import Riddle from "../models/Riddle.js";
 import ChoiceRiddle from "../models/ChoiceRiddle.js";
 import { getRiddles } from "../services/riddleServices.js";
@@ -10,16 +11,23 @@ function chooseLevel(){
 }
 
 function runLevel(riddles, player){
-    let r;
+    // run level of riddles
+
+    // initialize riddle and time
+    let riddle;
     let time;
-    for (let riddle of riddles){
-        if (riddle.level === "multi-choices"){
-            r = new ChoiceRiddle(riddle);
+    // loop over the riddles to create riddle entity and call ask method
+    for (let r of riddles){
+        // create riddle by type
+        if (r.level === "multi-choices"){
+            riddle = new ChoiceRiddle(r);
         }
         else{
-            r = new Riddle(riddle); 
+            riddle = new Riddle(r); 
         }
-        time = player.recordTime(() => r.ask());
+        // call player.recordTime to save time of the current riddle
+        time = player.recordTime(() => riddle.ask());
+        // add the time to the player's times
         player.times.push(time);
     }
 }
@@ -31,11 +39,13 @@ export function game(){
     const player = createPlayer();
     const level = chooseLevel();
     // intialize riddles filtered by level
-    const riddles = getRiddles().filter(riddle => riddle.level === level);
+    let riddles = getRiddles().filter(riddle => riddle.level === level);
     // if level is 'all' or invalid level input, get all riddles
     if (riddles.length === 0){
         riddles = getRiddles();
     }
+    // call runLevel method
     runLevel(riddles, player);
+    // show player states
     player.showState();
 }

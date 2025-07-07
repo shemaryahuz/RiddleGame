@@ -43,3 +43,6 @@ function handleChoice(choice){
             console.log("Invalid choice. Try again.");
     }
 }
+
+// run the main function
+main();
