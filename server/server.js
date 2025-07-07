@@ -1,7 +1,7 @@
 // Riddle Game Server
 
 import { createServer } from "http";
-import { readRiddels } from "./src/dal/riddleDAL.js";
+import { getRiddels } from "./src/services/riddleService.js";
 
 const PORT = 3000;
 
@@ -19,6 +19,7 @@ server.on("request", async (req, res) => {
             res.end("Server is running...");
         case "/riddles":
             // if the request'url is whith '/riddles'
-            res.end(await readRiddels());
+            const riddlesArr = await getRiddels();
+            res.end(JSON.stringify(riddlesArr));
     }
 })

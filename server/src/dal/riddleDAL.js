@@ -12,6 +12,5 @@ export async function readRiddels(){
     catch(err){
         // if there is an error, log to the console
         console.error(`Error reading riddles: ${err}`);
-        return;
     }
 }
