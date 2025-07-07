@@ -6,7 +6,7 @@
         "question": "What has a neck but no head?",
         "answer": "bottle",
         "options": ["bottle", "chair", "snake", "tree"],
-        "Hint": "Often holds liquid."
+        "hint": "Often holds liquid."
     },
     {
         "level": "multi-choices",
@@ -15,7 +15,7 @@
         "question": "What goes up but never comes down?",
         "answer": "age",
         "options": ["balloon", "smoke", "age", "rain"],
-        "Hint": "Everyone gets more of it."
+        "hint": "Everyone gets more of it."
     },
     {
         "level": "multi-choices",
@@ -24,10 +24,10 @@
         "question": "What has many keys but can't open a single lock?",
         "answer": "piano",
         "options": ["door", "piano", "box", "safe"],
-        "Hint": "Makes music."
+        "hint": "Makes music."
     },
     {
-        level: "multi-choices",
+        "level": "multi-choices",
         "id": 4,
         "name": "Jumping Jewel",
         "question": "What has legs but doesn't walk?",

@@ -2,8 +2,9 @@
 
 import { showWelcome, showGoodbye, displayMenu } from "./src/ui/menu.js";
 import { game } from "./src/ui/game.js";
+import { showAllRiddles } from "./src/ui/riddlesCRUD.js";
 
-function main(){
+async function main(){
     // main function of the application
 
     // show welcome message
@@ -23,18 +24,22 @@ function main(){
             continue;
         }
         // call handleChoice function with user's choice
-        handleChoice(choice);
+        await handleChoice(choice);
     }
 }
 
-function handleChoice(choice){
+async function handleChoice(choice){
     switch (choice){
         case "1":
             // if option 1 was chosen, run the game
-            game();
+            await game();
             break;
         case "2":
+            
         case "3":
+            // if option 3 was chosen, show all riddles
+            await showAllRiddles();
+            break;
         case "4":
         case "5":
         case "6":
