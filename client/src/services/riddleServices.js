@@ -1,0 +1,1 @@
+// Functions for handling witj Riddles
