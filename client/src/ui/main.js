@@ -2,7 +2,7 @@
 
 import { showWelcome, showGoodbye, displayMenu } from "./menu.js";
 import { game } from "./game.js";
-import { showAllRiddles, createRiddle } from "./riddlesCRUD.js";
+import { showAllRiddles, createRiddle, deleteRiddleById } from "./riddlesCRUD.js";
 
 async function handleChoice(choice){
     // function for handling with user's choice
@@ -20,8 +20,15 @@ async function handleChoice(choice){
             await showAllRiddles();
             break;
         case "4":
+            console.log("Option not ready yet.");
+            break;
         case "5":
+            // if option 5 was chosen, delete riddle by id
+            deleteRiddleById();
+            break;
         case "6":
+            console.log("Option not ready yet.");
+            break;
         default:
             // if user's input is invalid log to th console
             console.log("Invalid choice. Try again.");
