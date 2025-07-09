@@ -2,9 +2,9 @@
 
 import fs from "fs/promises";
 
-const PATH = "././data/riddles.txt";
+const PATH = "../../data/riddles.txt";
 
-export async function readRiddels(){
+export async function readRiddles(){
     try{
         // read all riddles from riddles.txt
         return await fs.readFile(PATH, 'utf-8');
@@ -12,5 +12,16 @@ export async function readRiddels(){
     catch(err){
         // if there is an error, log to the console
         console.error(`Error reading riddles: ${err}`);
+    }
+}
+
+export async function writeRiddles(riddles){
+    try{
+        // write updated riddles to riddles.txt
+        return await fs.writeFile(PATH, riddles, 'utf-8');
+    }
+    catch(err){
+        // if there is an error, log to the console
+        console.error(`Error writing riddles: ${err}`);
     }
 }

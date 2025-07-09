@@ -14,15 +14,24 @@ server.listen(PORT, () => {
 
 server.on("request", async (req, res) => {
     try{
-        if (req.url === "/"){
-            // if the request'url is the default path, response with message that the server is running
-            res.end("Server is running...");
-        }
-        else if (req.url ===  "/riddles"){
-            // if the request'url is whith '/riddles'
-            const riddlesArr = await getRiddles();
-            const riddlesStr = JSON.stringify(riddlesArr);
-            res.end(riddlesStr);
+        switch(req.url){
+            // handle response according to the request's url path
+
+            case "/riddles":
+                // if the request's url is with '/riddles', send all riddles
+                const riddlesArr = await getRiddles();
+                const riddlesStr = JSON.stringify(riddlesArr);
+                res.end(riddlesStr);
+
+            case "/addRiddle":
+                // if the request's url is with '/addRiddle', add riddle
+                if (req.method.toUpperCase() === "POST"){
+                    
+                }
+            
+            default:
+                // if the request's url is the default path, response with message that the server is running
+                res.end("Server is running...");
         }
     }
     catch(err){
