@@ -2,7 +2,7 @@
 
 import { readRiddles, writeRiddles } from "../dal/riddleDAL.js";
 
-export async function getRiddles(){
+export async function getAllRiddles(){
     try{
         // get all riddles as json string
         const riddlesStr = await readRiddles();
@@ -17,7 +17,7 @@ export async function getRiddles(){
 
 export async function addRiddle(riddle){
     try{
-        const riddles = await getRiddles();
+        const riddles = await getAllRiddles();
         riddles.push(riddle);
         await writeRiddles(riddles);
     }

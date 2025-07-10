@@ -1,6 +1,7 @@
 // Riddle Game Server
 
 import express from "express";
+import configRoutes from "./src/routes/configRoutes.js";
 
 // initialize express application
 const app = express();
@@ -8,6 +9,8 @@ const app = express();
 // convert all requests body to json
 app.use(express.json());
 
+// config all routes in the application
+configRoutes(app);
 
 // get the port for running
 const PORT = process.env.PORT;

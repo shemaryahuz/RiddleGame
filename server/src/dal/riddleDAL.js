@@ -2,7 +2,8 @@
 
 import fs from "fs/promises";
 
-const PATH = "../../data/riddles.txt";
+// initialize path to riddles.txt (relative to server.js - the main running file)
+const PATH = "./data/riddles.txt";
 
 export async function readRiddles(){
     try{
