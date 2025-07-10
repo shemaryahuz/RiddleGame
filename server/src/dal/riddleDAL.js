@@ -19,10 +19,12 @@ export async function readRiddles(){
 export async function writeRiddles(riddles){
     try{
         // write updated riddles to riddles.txt
-        return await fs.writeFile(PATH, riddles, 'utf-8');
+        await fs.writeFile(PATH, riddles, 'utf-8');
+        return true;
     }
     catch(err){
         // if there is an error, log to the console
         console.error(`Error writing riddles: ${err}`);
+        return false;
     }
 }
