@@ -2,7 +2,8 @@
 
 import fs from "fs/promises";
 
-const PATH = "../../data/riddles.txt";
+// initialize path to riddles.txt (relative to server.js - the main running file)
+const PATH = "./data/riddles.txt";
 
 export async function readRiddles(){
     try{
@@ -18,10 +19,12 @@ export async function readRiddles(){
 export async function writeRiddles(riddles){
     try{
         // write updated riddles to riddles.txt
-        return await fs.writeFile(PATH, riddles, 'utf-8');
+        await fs.writeFile(PATH, riddles, 'utf-8');
+        return true;
     }
     catch(err){
         // if there is an error, log to the console
         console.error(`Error writing riddles: ${err}`);
+        return false;
     }
 }
