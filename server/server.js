@@ -5,8 +5,8 @@ import express from "express";
 // initialize express application
 const app = express();
 
-
-
+// convert all requests body to json
+app.use(express.json());
 
 
 // get the port for running
