@@ -38,65 +38,81 @@ export async function addRiddle(riddle){
     try{
         // add unique id to the riddle
         riddle.id = await generateUniqueId();
+        // if there is no level field, add it
+        riddle.level = "extra";
         // get all riddles
         const riddles = await getAllRiddles();
         riddles.push(riddle);
-        // convert ridles to a json string for writing to a file
+        // convert riddles to a json string for writing to a file
         const riddlesStr = JSON.stringify(riddles, null, 2);
-        const added = await writeRiddles(riddlesStr);
-        return added;
+        await writeRiddles(riddlesStr);
+        return riddle;
     }
     catch(err){
         // if there is an error, log to the console
         console.error(`Error adding riddle: ${err}`);
-        return false;
+        return;
     }
 }
 
-export async function updateRiddle(riddleId, newRiddle) {
+export async function updateRiddleById(riddleId, newRiddle) {
     try {
-        // add unique id to the new riddle
-        newRiddle.id = await generateUniqueId();
         // get all riddles
         const riddles = await getAllRiddles();
+        // isExsits bool
+        let isExsits = false;
         // loop over the riddles
-        for (let i = 0; i < riddles.length; i++){
-            // if riddle id found, update with the new riddle and return true if updated
-            if (riddles[i].id === riddleId){
-                riddles[i] = newRiddle;
-                // convert ridles to a json string for writing to a file
-                const riddlesStr = JSON.stringify(riddles, null, 2);
-                const updated = await writeRiddles(riddlesStr);
-                return updated;
+        riddles.forEach(riddle => {
+            // if riddle id found, update with the new riddle
+            if (riddle.id === riddleId){
+                isExsits = true;
+                riddle.name = newRiddle.name;
+                riddle.question = newRiddle.question;
+                riddle.answer = newRiddle.answer;
+                return;
             }
+        });
+        if (!isExsits){
+            // if not found, return undefined
+            return;
         }
-        // if not found, return false
-        return false;
-        
+        // convert ridles to a json string for writing to a file
+        const riddlesStr = JSON.stringify(riddles, null, 2);
+        await writeRiddles(riddlesStr);
+        // add the id for returning
+        newRiddle.id = riddleId;
+        return newRiddle;
     } catch (error) {
         // if there is an error, log to the console
         console.error(`Error updating riddle: ${error}`);
-        return false;
+        return;
     }
 }
 
-export async function deleteRiddle(riddleId) {
+export async function deleteRiddleById(riddleId) {
     try {
         // get all riddles
         const riddles = await getAllRiddles();
+        // found variable
+        let found = false;
         // loop over the riddles
-        for (let i = 0; i < riddles.length; i++){
-            // if riddle id found, delete and return true if deleted
-            if (riddles[i].id === riddleId){
-                riddles.splice(i, 1);
-                // convert ridles to a json string for writing to a file
-                const riddlesStr = JSON.stringify(riddles, null, 2); 
-                const deleted = await writeRiddles(riddlesStr);
-                return deleted;
+        riddles.forEach((riddle, index, riddles) =>{
+            // if riddle id found, delete it
+            if (riddle.id === riddleId){
+                found = true;
+                riddles.splice(index, 1);
+                return;
             }
-        }
+        });
         // if not found, return false
-        return false;
+        if (!found){
+            return false;
+        }
+        // convert riddles to a json string for writing to a file
+        const riddlesStr = JSON.stringify(riddles, null, 2); 
+        const deleted = await writeRiddles(riddlesStr);
+        // return bool if deleted
+        return deleted;
         
     } catch (error) {
         // if there is an error, log to the console
