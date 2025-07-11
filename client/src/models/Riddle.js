@@ -11,6 +11,7 @@ export default class Riddle{
         this.answer = riddle.answer;
     }
     showRiddle(){
+        console.log(`\nRiddle Level: ${this.level}.`);
         console.log(`\nRiddle name: ${this.name}.`);
         console.log(`\nRiddle id: ${this.id}.`);
         console.log(`\nQuestion: ${this.question}.`);

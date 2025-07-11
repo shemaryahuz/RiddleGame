@@ -6,9 +6,9 @@ import ChoiceRiddle from "../models/ChoiceRiddle.js";
 import { fetchAllRiddles } from "../services/riddleService.js";
 import { createPlayer } from "../services/playerService.js";
 
-function runLevel(riddles, player){
+function runLevel(riddles, level, player){
     // run level of riddles
-
+    console.log(`\n== Level: '${level}' ==`);
     // initialize riddle and time
     let riddle;
     let time;
@@ -32,21 +32,29 @@ export async function game(){
     // variable for exit
     const exit = "0";
     // main function for the game
-    console.log("\nStarting the game: ");
+    console.log("\n== Welcome to the Riddle Game ==");
     // intialize player and level by readlin-sync.question
     const player = createPlayer();
-    const level = question("\nChoose game level (all/ multi-choices/ easy/ medium/ hard): ");
-
+    const level = question("\nChoose game level (all/ multi-choices/ easy/ medium/ hard/ extra): ").toLowerCase();
+    // validate level
+    const levels = ["all", "multi-choices", "easy", "medium", "hard"];
+    if (!levels.includes(level)){
+        console.log("\nlevel is in valid\n");
+        return;
+    }
     // get all riddles from the server
     const riddles = await fetchAllRiddles();
-    // intialize riddles filtered by level
-    let filteredRiddles = riddles.filter(riddle => riddle.level === level);
-    // if level is 'all' or invalid level input, get all riddles
-    if (filteredRiddles.length === 0){
-        filteredRiddles = riddles;
+    let filteredRiddles;
+    // if level is 'all', get all riddles
+    if (level === "all"){
+        filteredRiddles = riddles;     
+    }
+    else{
+        // if level is spesific, filter ridddles by level
+        filteredRiddles = riddles.filter(riddle => riddle.level === level);
     }
     // call runLevel method
-    runLevel(filteredRiddles, player);
+    runLevel(filteredRiddles, level, player);
     // show player states
     player.showState();
 }

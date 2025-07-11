@@ -4,7 +4,7 @@ import { question } from "readline-sync";
 
 export function showWelcome(){
     // Show Welcome message to the user
-    console.log("=== Welcome to the Riddle Game ===\n");
+    console.log("=== Welcome to the Riddle Game Application ===\n");
 }
 
 export function showGoodbye(){
