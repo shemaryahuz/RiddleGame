@@ -2,15 +2,17 @@
 
 import { showWelcome, showGoodbye, displayMenu } from "./menu.js";
 import { game } from "./game.js";
-import { showAllRiddles, createRiddle, deleteRiddleById } from "./riddlesCRUD.js";
+import { showAllRiddles, createRiddle, deleteRiddleById } from "./riddleOptions.js";
 
 async function handleChoice(choice){
+    // boolean to continue or exit
+    let toContinue = true;
     // function for handling with user's choice
     switch (choice){
         case "1":
-            // if option 1 was chosen, run the game
-            await game();
-            break;
+            // if option 1 was chosen, run the game and get bool to continue or exit
+            toContinue = await game();
+            return toContinue;
         case "2":
             // if option 2 was chosen, create new user
             await createRiddle();
@@ -52,7 +54,7 @@ export default async function main(){
             // if exit was chosen, show goodbye message and exit
             showGoodbye();
             toExit = true;
-            continue;
+            break;
         }
         // call handleChoice function with user's choice
         await handleChoice(choice);

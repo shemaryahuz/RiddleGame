@@ -1,22 +1,8 @@
 // Class to represent a Riddle
 import {question} from "readline-sync"
 
-export function getAnswer(){
-    return question("Enter your answer: ");
-}
-
-export function showWrong(){
-    console.log("Wrong answer, try again.");
-    console.log("");
-}
-
-export function showCorrect(){
-    console.log("");
-    console.log("Well done! Correct answer.");
-    console.log("");
-}
-
 export default class Riddle{
+    // initialize riddle properties
     constructor(riddle){
         this.level = riddle.level;
         this.id = riddle.id;
@@ -24,15 +10,30 @@ export default class Riddle{
         this.question = riddle.question;
         this.answer = riddle.answer;
     }
-    ask(){
-        console.log("Riddle number: " + this.id);
-        console.log("Question: " + this.question);
-        console.log("");
-        let input = getAnswer();
+    showRiddle(){
+        console.log(`\nRiddle Level: ${this.level}.`);
+        console.log(`\nRiddle name: ${this.name}.`);
+        console.log(`\nRiddle id: ${this.id}.`);
+        console.log(`\nQuestion: ${this.question}.`);
+    }
+    getAnswer(){
+        return question("\nEnter your answer: ");
+    }
+    showWrong(){
+        console.log("\nWrong answer, try again.");
+    }
+    showCorrect(){
+        console.log("\nWell done! Correct answer.\n");
+    }
+    ask() {
+        // show riddle details
+        this.showRiddle();
+        // get the user's answer until it's correct
+        let input = this.getAnswer();
         while (input !== this.answer){
-            showWrong();
-            input = getAnswer();
+            this.showWrong();
+            input = this.getAnswer();
         }
-        showCorrect();
+        this.showCorrect();
     }
 }

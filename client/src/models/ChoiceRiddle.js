@@ -1,22 +1,26 @@
-import Riddle, { getAnswer, showWrong, showCorrect } from "./Riddle.js";
+import Riddle from "./Riddle.js";
 
 export default class ChoiceRiddle extends Riddle{
     constructor(riddle){
         super(riddle);
         this.options = riddle.options;
     }
-    ask(){
-        console.log("Riddle number: " + this.id);
-        console.log("Question: " + this.question);
-        console.log("Options:");
+    showOptions(){
+        console.log("\nOptions:");
         for (let i = 0; i < this.options.length; i++){
             console.log(`${i + 1}: ${this.options[i]}`);
         }
-        let input = getAnswer();
+    }
+    ask(){
+        // show riddle details
+        super.showRiddle();
+        // show options
+        this.showOptions();
+        let input = super.getAnswer();
         while (input !== this.answer){
-            showWrong();
-            input = getAnswer();
+            super.showWrong();
+            input = super.getAnswer();
         }
-        showCorrect();
+        super.showCorrect();
     }
 }

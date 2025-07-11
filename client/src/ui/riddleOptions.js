@@ -3,7 +3,7 @@
 import Id from "short-unique-id"
 import { question } from "readline-sync";
 import Riddle from "../models/Riddle.js";
-import { addRiddle, allRiddles, deleteRiddle, getRiddles, sendRiddle } from "../services/riddleService.js";
+// import { addRiddle, allRiddles, deleteRiddle, getRiddles, sendRiddle } from "../services/riddleService.js";
 
 function showRiddles(riddles){
     // function that gets an array of riddles and log the details to the console
