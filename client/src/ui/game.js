@@ -3,12 +3,8 @@
 import { question } from "readline-sync";
 import Riddle from "../models/Riddle.js";
 import ChoiceRiddle from "../models/ChoiceRiddle.js";
-import { allRiddles, getRiddles } from "../services/riddleService.js";
+import { fetchAllRiddles } from "../services/riddleService.js";
 import { createPlayer } from "../services/playerService.js";
-
-function chooseLevel(){
-    return question("Choose game level (all/ multi-choices/ easy/ medium/ hard): ")
-}
 
 function runLevel(riddles, player){
     // run level of riddles
@@ -33,17 +29,16 @@ function runLevel(riddles, player){
 }
 
 export async function game(){
+    // variable for exit
+    const exit = "0";
     // main function for the game
-
+    console.log("\nStarting the game: ");
     // intialize player and level by readlin-sync.question
     const player = createPlayer();
-    const level = chooseLevel();
+    const level = question("\nChoose game level (all/ multi-choices/ easy/ medium/ hard): ");
 
-    // get all riddles
-    // let riddles = await getRiddles();
-    const riddles = allRiddles;
-
-
+    // get all riddles from the server
+    const riddles = await fetchAllRiddles();
     // intialize riddles filtered by level
     let filteredRiddles = riddles.filter(riddle => riddle.level === level);
     // if level is 'all' or invalid level input, get all riddles
