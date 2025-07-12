@@ -1,7 +1,7 @@
 // riddles dashbord for view and operations
 
 import { question } from "readline-sync";
-import { showAllRiddles } from "../controllers/riddleController.js";
+import { showAllRiddles, showRiddleById } from "../controllers/riddleController.js";
 
 
 function displayRiddlesMenu(){
@@ -20,10 +20,12 @@ function displayRiddlesMenu(){
 async function handleChoice(choice) {
     switch(choice){
         case "1":
-            // if option 1 was chosen, fetch and show All Riddles
+            // if option 1 was chosen, fetch and show all riddles
             await showAllRiddles();
             break;
         case "2":
+            // if option 2 was chosen, get id from the use, fetch riddle and show
+            await showRiddleById();
             break;
         case "3":
             break;

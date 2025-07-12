@@ -2,9 +2,10 @@
 
 import { question } from "readline-sync";
 import Riddle from "../models/Riddle.js";
-import { fetchAllRiddles } from "../services/riddleService.js";
+import { fetchAllRiddles, fetchRiddleById } from "../services/riddleService.js";
 
 function showRiddle(riddle){
+    // show riddle details
     console.log();
     console.log("level:", riddle.level);
     console.log("id:", riddle.id);
@@ -22,6 +23,21 @@ export async function showAllRiddles(){
         showRiddle(riddle);
     }
 }
+
+export async function showRiddleById() {
+    // get id from the user
+    const riddleId = question("\nEnter riddle id: ");
+    // fetch riddle from the server
+    const riddle = await fetchRiddleById(riddleId);
+    if (!riddle){
+        // if returned object is empty, log 'not found'
+        console.log("\nRiddle not found.");
+        return;
+    }
+    // if found, show riddle details
+    showRiddle(riddle);
+}
+
 
 export async function createRiddle() {
     // function to create a new riddle and store in the database
