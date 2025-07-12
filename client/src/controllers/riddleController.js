@@ -1,30 +1,43 @@
 // CRUD methods for riddles managment
 
-import Id from "short-unique-id"
 import { question } from "readline-sync";
 import Riddle from "../models/Riddle.js";
-// import { addRiddle, allRiddles, deleteRiddle, getRiddles, sendRiddle } from "../services/riddleService.js";
+import { fetchAllRiddles, fetchRiddleById } from "../services/riddleService.js";
 
-function showRiddles(riddles){
-    // function that gets an array of riddles and log the details to the console
-    console.log("All the Riddles of the Riddle Game:");
-    let riddle;
-    for (let r of riddles){
-        riddle = new Riddle(r);
-        console.log("level:", riddle.level);
-        console.log("id:", riddle.id);
-        console.log("name:", riddle.name);
-        console.log("question:", riddle.question);
-        console.log("answer:", riddle.answer);
-    }
+function showRiddle(riddle){
+    // show riddle details
+    console.log();
+    console.log("level:", riddle.level);
+    console.log("id:", riddle.id);
+    console.log("name:", riddle.name);
+    console.log("question:", riddle.question);
+    console.log("answer:", riddle.answer);
+    console.log();
 }
 
 export async function showAllRiddles(){
     // function to get and show all the riddles
-    // const riddles = await getRiddles();
-    const riddles = allRiddles;
-    showRiddles(riddles);
+    const riddles = await fetchAllRiddles();
+    console.log("\nAll the Riddles of the Riddle Game:");
+    for (let riddle of riddles){
+        showRiddle(riddle);
+    }
 }
+
+export async function showRiddleById() {
+    // get id from the user
+    const riddleId = question("\nEnter riddle id: ");
+    // fetch riddle from the server
+    const riddle = await fetchRiddleById(riddleId);
+    if (!riddle){
+        // if returned object is empty, log 'not found'
+        console.log("\nRiddle not found.");
+        return;
+    }
+    // if found, show riddle details
+    showRiddle(riddle);
+}
+
 
 export async function createRiddle() {
     // function to create a new riddle and store in the database

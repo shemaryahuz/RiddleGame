@@ -18,6 +18,25 @@ export async function fetchAllRiddles() {
     }
 }
 
+export async function fetchRiddleById(riddleId){
+    // function to fetch riddle from the server by id and parse to an object
+    try {
+        // get riddle from server as json string
+        const riddleResponse = await fetch(riddlesURL + "/" + riddleId);
+        const riddleObj = await riddleResponse.json();
+        // if the response is with error of not found, return empty object
+        if (riddleObj.error){
+            return;
+        }
+        return riddleObj;
+    }
+    catch (err) {
+        // if there is an error, log to the console
+        console.error(`Error fetching riddle from the server: ${err}`);
+        return;
+    }
+}
+
 export async function sendRiddle(riddle) {
     // function to send new riddle to store on the database
 
