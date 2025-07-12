@@ -2,7 +2,7 @@
 
 import { question } from "readline-sync";
 import Riddle from "../models/Riddle.js";
-import { fetchAllRiddles, fetchRiddleById } from "../services/riddleService.js";
+import { fetchAllRiddles, fetchRiddleById, addRiddle } from "../services/riddleService.js";
 
 function showRiddle(riddle){
     // show riddle details
@@ -32,35 +32,38 @@ export async function showRiddleById() {
     if (!riddle){
         // if returned object is empty, log 'not found'
         console.log("\nRiddle not found.");
-        return;
     }
-    // if found, show riddle details
-    showRiddle(riddle);
+    else{
+        // if found, show riddle details
+        showRiddle(riddle);
+    }
 }
 
 
 export async function createRiddle() {
     // function to create a new riddle and store in the database
-    // const riddles = await getRiddles();
-    const riddles = allRiddles;
-    // get riddles from the server to create new id
-    console.log("Creating a new Riddle:");
-    // create Riddle properties
-    const rId = new Id().rnd(3);
+    console.log("\nCreating a new Riddle:"); 
     // get user inputs
-    const rName = question("Enter Riddle name: ");
-    const rQuestion = question("Enter Riddle question: ");
-    const rAnswer = question("Enter Riddle answer: ");
-    // create riddle entity
+    const rName = question("\nEnter Riddle name: ");
+    const rQuestion = question("\nEnter Riddle question: ");
+    const rAnswer = question("\nEnter Riddle answer: ");
+    // create riddle entity with properties
     const riddle = new Riddle({
-        id: rId,
         level: "extra",
         name: rName,
         question: rQuestion,
         answer: rAnswer
     });
-    // await sendRiddle(riddle);
-    addRiddle(riddle);
+    // send the riddle and get the created riddle from the server
+    const createdRiddle = await addRiddle(riddle);
+    // if not created, log to the console
+    if (!createdRiddle){
+        console.log("Something went wrong with creating riddle");
+    }
+    else{
+        console.log("\nCreated riddle:");
+        showRiddle(createdRiddle);
+    }
 }
 
 export function deleteRiddleById(){

@@ -37,7 +37,7 @@ export async function fetchRiddleById(riddleId){
     }
 }
 
-export async function sendRiddle(riddle) {
+export async function addRiddle(riddle) {
     // function to send new riddle to store on the database
 
     try{
@@ -49,12 +49,19 @@ export async function sendRiddle(riddle) {
             },
             body: JSON.stringify(riddle)
         };
-        // send request
-        await fetch(URL + "/addRiddle", request);
+        // send request with route of '/addRiddle'
+        const createdResponse = await fetch(riddlesURL + "/addRiddle", request);
+        const riddleObj = await createdResponse.json();
+        // if response without riddle that created return undefind
+        if (!riddleObj.riddle){
+            return;
+        }
+        // if riddle created return it
+        return riddleObj.riddle;
     }
     catch (err) {
         // if there is an error, log to the console
-        console.error(`Error sending riddle to the server: ${err}`);
-        return [];
+        console.error(`Error creating riddle: ${err}`);
+        return;
     }
 }
