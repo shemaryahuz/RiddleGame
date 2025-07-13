@@ -36,10 +36,10 @@ async function handleChoice(choice){
             await riddleDashboard();
             break;
         case "3":
-            console.log("option not ready yet.");
+            console.log("\noption not ready yet.");
         default:
             // if user's input is invalid log to th console
-            console.log("Invalid choice. Try again.");
+            console.log("\nInvalid choice. Try again.");
     }
 }
 

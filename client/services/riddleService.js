@@ -50,18 +50,46 @@ export async function addRiddle(riddle) {
             body: JSON.stringify(riddle)
         };
         // send request with route of '/addRiddle'
-        const createdResponse = await fetch(riddlesURL + "/addRiddle", request);
-        const riddleObj = await createdResponse.json();
-        // if response without riddle that created return undefind
-        if (!riddleObj.riddle){
+        const response = await fetch(riddlesURL + "/addRiddle", request);
+        const responseObj = await response.json();
+        // if response without riddle that created, return undefind
+        if (!responseObj.riddle){
             return;
         }
         // if riddle created return it
-        return riddleObj.riddle;
+        return responseObj.riddle;
     }
     catch (err) {
         // if there is an error, log to the console
         console.error(`Error creating riddle: ${err}`);
+        return;
+    }
+}
+
+export async function updateRiddle(riddleId, newRiddle) {
+    // function to update riddle by id
+    try{
+        // create request of PUT method
+        const request = {
+            method: "PUT",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(newRiddle)
+        };
+        // send request with route of '/:riddleId' and the PUT request
+        const response = await fetch(riddlesURL + "/" + riddleId, request);
+        const responseObj = await response.json();
+        // if response without riddle that updated, return undefind
+        if (!responseObj.riddle){
+            return;
+        }
+        // if riddle updated return it
+        return responseObj.riddle;
+    }
+    catch (err) {
+        // if there is an error, log to the console
+        console.error(`Error updating riddle: ${err}`);
         return;
     }
 }

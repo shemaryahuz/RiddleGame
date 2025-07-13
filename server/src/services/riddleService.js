@@ -79,8 +79,9 @@ export async function updateRiddleById(riddleId, newRiddle) {
         // convert ridles to a json string for writing to a file
         const riddlesStr = JSON.stringify(riddles, null, 2);
         await writeRiddles(riddlesStr);
-        // add the id for returning
+        // add the id and level for returning
         newRiddle.id = riddleId;
+        newRiddle.level = "extra";
         return newRiddle;
     } catch (error) {
         // if there is an error, log to the console
