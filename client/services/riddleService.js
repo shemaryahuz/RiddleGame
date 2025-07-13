@@ -93,3 +93,30 @@ export async function updateRiddle(riddleId, newRiddle) {
         return;
     }
 }
+
+export async function deleteRiddle(riddleId) {
+    // function to delete riddle by id
+    try{
+        // create request of DELETE method
+        const request = {
+            method: "DELETE",
+            headers: {
+                "content-type": "application/json"
+            }
+        };
+        // send request with route of '/:riddleId' and the DELETE request
+        const response = await fetch(riddlesURL + "/" + riddleId, request);
+        const responseObj = await response.json();
+        // if response without succeded message, return undefind
+        if (!responseObj.message){
+            return;
+        }
+        // if riddle deleted return the message
+        return responseObj.message;
+    }
+    catch (err) {
+        // if there is an error, log to the console
+        console.error(`Error deleting riddle: ${err}`);
+        return;
+    }
+}

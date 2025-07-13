@@ -2,7 +2,7 @@
 
 import { question } from "readline-sync";
 import Riddle from "../models/Riddle.js";
-import { fetchAllRiddles, fetchRiddleById, addRiddle, updateRiddle } from "../services/riddleService.js";
+import { fetchAllRiddles, fetchRiddleById, addRiddle, updateRiddle, deleteRiddle } from "../services/riddleService.js";
 
 function showRiddle(riddle){
     // show riddle details
@@ -67,6 +67,7 @@ export async function createRiddle() {
 }
 
 export async function updateRiddleById(){
+    // function to update riddle by id
     // get user inputs
     const riddleId = question("\nEnter id for updating: ");
     const nName = question("\nEnter the new riddle name: ");
@@ -82,12 +83,29 @@ export async function updateRiddleById(){
 
     // update the riddle in the server
     const updated = await updateRiddle(riddleId, newRiddle);
-        // if not created, log to the console
+        // if not updated, log to the console
     if (!updated){
         console.log("\nSomething went wrong with updating riddle");
     }
+    // if updated, show the updated riddle
     else{
         console.log("\nUpdated riddle:");
         showRiddle(updated);
+    }
+}
+
+export async function deleteRiddleById() {
+    // function to delete riddle by id
+    // get id from the user
+    const riddleId = question("\nEnter id for deleting: ");
+    const success = await deleteRiddle(riddleId);
+    // if message wasn't returned, log to the console
+    if (!success){
+        console.log("\nSomething went wrong with deleting");
+    }
+    // if success, log the message
+    else{
+        console.log();
+        console.log(success);
     }
 }
