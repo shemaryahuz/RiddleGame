@@ -10,8 +10,7 @@ const client = new MongoClient(uri);
 const dbName = "riddles_db";
 
 let db;
-
-async function connectDB() {
+export async function connectDB() {
     // connect to the riddles database if not connected
     if (!db){
         await client.connect();
@@ -20,7 +19,6 @@ async function connectDB() {
     }
     return db;
 }
-
-connectDB();
+db = await connectDB();
 
 export default db;
