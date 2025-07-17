@@ -1,28 +1,41 @@
 // handlers for riddles route
 
-import { fetchAllRiddles } from "../dal/riddleDAL.js";
+import { fetchAllRiddles, fetchRiddle } from "../dal/riddleDAL.js";
 // import { addRiddle, deleteRiddleById, getAllRiddles, getRiddle, updateRiddleById } from "../services/riddleService.js";
 
 export async function sendAllRiddles(req, res) {
-    // get all riddles array
-    const riddles = await fetchAllRiddles();
+    // get the riddles from the database
+    try {
+        const riddles = await fetchAllRiddles();
+        // if empty array returned, response with error
+        if (!riddles.length){
+            res.status(404).send({ error: "riddles array not found" });
+            return;
+    }
     res.send(riddles);
+    } catch (error) {
+        res.status(404).send({ error: error.message });
+    }
 }
 
-// export async function sendRiddle(req, res) {
-//     // destruct id from request params
-//     const riddleId = req.params?.riddleId;
-//     // get the riddle by id
-//     const riddle = await getRiddle(riddleId);
-//     // if riddle is undefined, return message and status code of 'not found'
-//     if (!riddle){
-//         res.status(404).send({ error: "riddle id not found" });
-//         return;
-//     }
-//     // if riddle found, convert to json string and send it
-//     const riddleStr = JSON.stringify(riddle, null, 2);
-//     res.send(riddleStr);
-// }
+export async function sendRiddle(req, res) {
+    // destruct id from request params
+    const { riddleId } = req.params;
+    // get the riddle by id
+    try {
+        const riddle = await fetchRiddle(riddleId);
+        // if riddle is null, response message and status code of 'not found'
+        if (!riddle){
+            res.status(404).send({ error: "riddle id not found" });
+            return;
+        }
+        // if found, response with the riddle
+        res.send(riddle);
+
+    } catch (error) {
+        res.status(404).send({ error: error.message });
+    }
+}
 
 // export async function addNewRiddle(req, res) {
 //     // destruct the riddle from request body
