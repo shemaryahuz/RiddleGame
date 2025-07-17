@@ -5,7 +5,11 @@ import db from "../../config/riddleDB.js";
 const riddles_collection = db.collection("riddles");
 
 export async function fetchAllRiddles() {
-    // get all documents of riddles from the database
-    const riddles = await riddles_collection.find().toArray();
-    return riddles;
+    try {
+        // get all documents of riddles from the database
+        const riddles = await riddles_collection.find().toArray();
+        return riddles;
+    } catch (error) {
+        console.error(`Error fetching riddles from database: ${error}`);
+    }
 }
