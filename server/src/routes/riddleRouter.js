@@ -1,7 +1,7 @@
 // router for endpoints of riddles route
 
 import express from "express";
-import { addNewRiddle, sendAllRiddles, sendRiddle, updateRiddleById } from "../controllers/riddleControllers.js";
+import { addNewRiddle, deleteRiddleById, sendAllRiddles, sendRiddle, updateRiddleById } from "../controllers/riddleControllers.js";
 import { validateRiddle, validateRiddleId } from "../middlewares/riddleMiddlewares.js";
 
 
@@ -20,7 +20,7 @@ router.post("/addRiddle", validateRiddle, addNewRiddle);
 // if route is '/riddles/:riddleId' with PUT method, update the riddle by id
 router.put("/:riddleId", validateRiddleId, validateRiddle, updateRiddleById);
 
-// // if route is '/riddles/:riddleId' with DELETE method, delete the riddle by id
-// router.delete("/:riddleId", deleteRiddle);
+// if route is '/riddles/:riddleId' with DELETE method, delete the riddle by id
+router.delete("/:riddleId", validateRiddleId, deleteRiddleById);
 
 export default router;

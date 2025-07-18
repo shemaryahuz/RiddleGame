@@ -52,3 +52,15 @@ export async function updateRiddle(riddleId, newRiddle) {
         throw new Error(error.message);
     }
 }
+
+export async function deleteRiddle(riddleId) {
+    // delete riddle by id
+    try {
+        const query = { _id: new ObjectId(riddleId) };
+        const deleted = await riddles_collection.deleteOne(query);
+        return deleted;
+    } catch (error) {
+        console.error(`Error updating riddle in the database: ${error}`);
+        throw new Error(error.message);
+    }
+}
