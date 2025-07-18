@@ -3,46 +3,6 @@
 // import { readRiddles, writeRiddles } from "../dal/riddleDAL.js";
 
 
-// export async function getRiddle(riddleId) {
-//     try {
-//         // get all riddles
-//         const riddles = await getAllRiddles();
-//         // loop over the riddles
-//         for (let riddle of riddles){
-//             // if riddle found, return it
-//             if (riddle.id === riddleId){
-//                 return riddle;
-//             }
-//         }
-//         // if not found, return undefined
-//         return;
-//     } catch (error) {
-//         // if there is an error, log to the console
-//         console.error(`Error getting riddle: ${error}`);
-//     }
-// }
-
-// export async function addRiddle(riddle){
-//     try{
-//         // add unique id to the riddle
-//         riddle.id = await generateUniqueId();
-//         // if there is no level field, add it
-//         riddle.level = "extra";
-//         // get all riddles
-//         const riddles = await getAllRiddles();
-//         riddles.push(riddle);
-//         // convert riddles to a json string for writing to a file
-//         const riddlesStr = JSON.stringify(riddles, null, 2);
-//         await writeRiddles(riddlesStr);
-//         return riddle;
-//     }
-//     catch(err){
-//         // if there is an error, log to the console
-//         console.error(`Error adding riddle: ${err}`);
-//         return;
-//     }
-// }
-
 // export async function updateRiddleById(riddleId, newRiddle) {
 //     try {
 //         // get all riddles

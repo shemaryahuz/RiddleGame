@@ -1,7 +1,6 @@
 // handlers for riddles route
 
-import { fetchAllRiddles, fetchRiddle } from "../dal/riddleDAL.js";
-// import { addRiddle, deleteRiddleById, getAllRiddles, getRiddle, updateRiddleById } from "../services/riddleService.js";
+import { fetchAllRiddles, fetchRiddle, insertRiddle } from "../dal/riddleDAL.js";
 
 export async function sendAllRiddles(req, res) {
     // get the riddles from the database
@@ -14,7 +13,7 @@ export async function sendAllRiddles(req, res) {
     }
     res.send(riddles);
     } catch (error) {
-        res.status(404).send({ error: error.message });
+        res.status(404).send({ error: `Error fetcimg riddles: ${error.message}` });
     }
 }
 
@@ -33,35 +32,23 @@ export async function sendRiddle(req, res) {
         res.send(riddle);
 
     } catch (error) {
-        res.status(404).send({ error: error.message });
+        res.status(404).send({ error: `Error fetcing riddle: ${error.message}` });
     }
 }
 
-// export async function addNewRiddle(req, res) {
-//     // destruct the riddle from request body
-//     const riddle = req.body;
-//     // if body is not a json, return status code of bad request with error message
-//     if (!riddle){
-//         res.status(404).send({ error: "body is malformed" });
-//         return;
-//     }
-//     // if body is not a valid format of riddle, return status code of bad request with error message
-//     if (!riddle.name || !riddle.question || !riddle.answer){
-//         res.status(400).send({ error: "riddle format is invalid" });
-//         return;
-//     }
-//     // add the new riddle and get the created riddle with its id
-//     const createdRiddle = await addRiddle(riddle);
-//     // if not added, response with error message and status code of error
-//     if (!createdRiddle){
-//         res.status(500).json({ error: "error adding riddle to the database"});
-//         return;
-//     }
-//     // if added response with succeded message and the created riddle as json string
-//     const response = { message: "riddle added successfuly", riddle: createdRiddle };
-//     const resStr = JSON.stringify(response, null, 2);
-//     res.send(resStr);
-// }
+export async function addNewRiddle(req, res) {
+    try {
+        // destruct the riddle from request body
+        const riddle = req.body;
+        // add the new riddle and get the created riddle with its id
+        const createdRiddle = await insertRiddle(riddle);
+        // if added, response with succeded message and the created riddle
+        res.send({ message: "riddle added successfuly", riddle: createdRiddle });
+    } catch (error) {
+        res.status(404).json({ error: `Error adding riddle: ${error.message}` });
+        return;
+    }
+}
 
 // export async function updateRiddle(req, res){
 //     // destruct id from request params

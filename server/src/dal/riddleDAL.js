@@ -21,9 +21,21 @@ export async function fetchRiddle(riddleId) {
     try {
         const query = { _id: new ObjectId(riddleId) };
         const riddle = await riddles_collection.findOne(query);
-        console.log(riddle);
+        return riddle;
     } catch (error) {
         console.error(`Error fetching riddle from database: ${error}`);
+        throw new Error(error.message);
+    }
+}
+
+export async function insertRiddle(riddle) {
+    // insert new document of riddle
+    try {
+        const withId = await riddles_collection.insertOne(riddle);
+        riddle._id = withId.insertedId;
+        return riddle;
+    } catch (error) {
+        console.error(`Error adding riddle to the database: ${error}`);
         throw new Error(error.message);
     }
 }

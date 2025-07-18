@@ -1,8 +1,8 @@
 // router for endpoints of riddles route
 
 import express from "express";
-import { sendAllRiddles, sendRiddle } from "../controllers/riddleControllers.js";
-import { validateRiddleId } from "../middlewares/riddleMiddlewares.js";
+import { addNewRiddle, sendAllRiddles, sendRiddle } from "../controllers/riddleControllers.js";
+import { validateRiddle, validateRiddleId } from "../middlewares/riddleMiddlewares.js";
 
 
 // initialize router
@@ -14,8 +14,8 @@ router.get("/", sendAllRiddles);
 // if route is '/riddles/:riddleId', send the riddle by id
 router.get("/:riddleId", validateRiddleId , sendRiddle);
 
-// // if route is '/riddles/addRiddle', create new riddle
-// router.post("/addRiddle", addNewRiddle);
+// if route is '/riddles/addRiddle', create new riddle
+router.post("/addRiddle", validateRiddle, addNewRiddle);
 
 // // if route is '/riddles/:riddleId' with PUT method, update the riddle by id
 // router.put("/:riddleId", updateRiddle);
