@@ -39,3 +39,16 @@ export async function insertRiddle(riddle) {
         throw new Error(error.message);
     }
 }
+
+export async function updateRiddle(riddleId, newRiddle) {
+    // update riddle by id
+    try {
+        const query = { _id: new ObjectId(riddleId) };
+        const update = { $set : newRiddle };
+        const result = await riddles_collection.updateOne(query, update);
+        return result;
+    } catch (error) {
+        console.error(`Error updating riddle in the database: ${error}`);
+        throw new Error(error.message);
+    }
+}

@@ -12,6 +12,6 @@ export default function configRoutes(app){
 
     // if route not found, response with message and status code 'not found'
     app.use((req, res) => {
-        res.status(404).json({ msg: "Route not found"});
+        res.status(404).json({ error: "Route not found"});
     })
 }
