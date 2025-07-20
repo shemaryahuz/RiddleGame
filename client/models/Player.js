@@ -1,34 +1,75 @@
 // Class to represent a Player
 
-
-
-export default class Player{
-    constructor(name){
-        this.name = name;
-        this.times = [];
-    };
-    recordTime(askFunc){
-        const start = new Date().getTime();
-        askFunc();
-        const end = new Date().getTime();
-        return (end - start) / 1000;
-    };
-    showState(){
-        console.log(`Great job ${this.name}!`);
-        for (let i = 0; i < this.times.length; i++){
-            console.log(`Riddle ${i + 1}: ${this.times[i]} seconds`);
-        }
-        console.log(`Total time: ${getTotalTime(this.times)} seconds`);
-        console.log(`Average time per riddle: ${getAverageTime(this.times)} seconds`);
-    };
-}
-
 function getTotalTime(times){
-    let sum = 0;
-    times.forEach((time) => sum += time);
-    return sum;
+    return times.reduce((sum, time) => sum + time, 0);
 }
 
 function getAverageTime(times){
     return getTotalTime(times) / times.length;
+}
+
+function calculateScore(time, hintUsed){
+    let score = 100 - time;
+    if (hintUsed){
+        score - 20;
+    }
+    if (score < 0){
+        score = 0;
+    }
+    return score;
+}
+
+export default class Player{
+    constructor(username){
+        this.username = username;
+        this.times = []; // seconds per riddle
+        this.hintsTaken = []; // booleans per riddle
+        this.bestTime = 0;
+        this.score = 0;
+    };
+    recordScore(riddle){
+
+        // boolean to change score if hint used
+        let hintUsed = false;
+
+        // callback for ask method
+        const useHint = () => {
+            if (riddle.hint){
+                console.log(`\nHint: ${riddle.hint}`);
+                hintUsed = true;
+            }
+        };
+
+        // decorator for recording the time per riddle
+        const start = new Date().getTime();
+        riddle.ask(useHint);
+        const end = new Date().getTime();
+        const time = (end - start) / 1000;
+
+        // add details to the player
+        if (this.bestTime === 0){
+            this.bestTime = time;
+        }
+        if (this.bestTime > time){
+            this.bestTime = time;
+        }
+
+        this.times.push(time);
+        this.hintsTaken.push(hintUsed);
+
+        // calculate score
+        this.score += calculateScore(time, hintUsed);
+    };
+
+    showState(riddles){
+        console.log(`Great job ${this.username}!`);
+        for (let i = 0; i < this.times.length; i++){
+            console.log(`\nRiddle '${riddles[i].name}': ${this.times[i].toFixed(2)} seconds.`);
+            console.log(`Hint was taken: ${this.hintsTaken[i]}.`)
+        }
+        console.log(`\nTotal time: ${getTotalTime(this.times).toFixed(2)} seconds`);
+        console.log(`Average time per riddle: ${getAverageTime(this.times).toFixed(2)} seconds`);
+        console.log(`Total score: ${this.score.toFixed(2)}`);
+        console.log(`Best time: ${this.bestTime.toFixed(2)}`);
+    };
 }

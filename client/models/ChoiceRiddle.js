@@ -11,14 +11,22 @@ export default class ChoiceRiddle extends Riddle{
             console.log(`${i + 1}: ${this.options[i]}`);
         }
     }
-    ask(){
+    ask(useHint){
         // show riddle details
         super.showRiddle();
         // show options
         this.showOptions();
         let input = super.getAnswer();
         while (input !== this.answer){
-            super.showWrong();
+            if (input === "hint" && this.hint){
+                useHint();
+            }
+            else if (input === "hint"){
+                console.log("\nNo hint available.")
+            }
+            else{
+                super.showWrong();
+            }
             input = super.getAnswer();
         }
         super.showCorrect();
