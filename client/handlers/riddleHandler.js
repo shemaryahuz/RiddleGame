@@ -8,7 +8,7 @@ function showRiddle(riddle){
     // show riddle details
     console.log();
     console.log("level:", riddle.level);
-    console.log("id:", riddle.id);
+    console.log("id:", riddle._id);
     console.log("name:", riddle.name);
     console.log("question:", riddle.question);
     console.log("answer:", riddle.answer);
