@@ -4,7 +4,7 @@ import { question } from "readline-sync";
 import Riddle from "../models/Riddle.js";
 import ChoiceRiddle from "../models/ChoiceRiddle.js";
 import { fetchAllRiddles } from "../services/riddleService.js";
-import { createPlayer } from "../services/playerService.js";
+import { createPlayer } from "./playerHandler.js";
 
 function runLevel(riddles, level, player){
     // run level of riddles

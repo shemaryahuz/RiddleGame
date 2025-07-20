@@ -5,16 +5,14 @@ export default class Riddle{
     // initialize riddle properties
     constructor(riddle){
         this.level = riddle.level;
-        this.id = riddle._id;
         this.name = riddle.name;
         this.question = riddle.question;
         this.answer = riddle.answer;
         this.hint = riddle.hint;
     }
     showRiddle(){
-        console.log(`\nRiddle Level: ${this.level}.`);
+        console.log(`\nRiddle level: ${this.level}.`);
         console.log(`\nRiddle name: ${this.name}.`);
-        console.log(`\nRiddle id: ${this.id}.`);
         console.log(`\nQuestion: ${this.question}.`);
     }
     getAnswer(){
