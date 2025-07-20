@@ -1,7 +1,7 @@
 // main menu of the application
 
 import { question } from "readline-sync";
-import { game } from "../controllers/gameController.js";
+import { game } from "../handlers/gameHandler.js";
 import { riddleDashboard } from "./riddleDashboard.js";
 
 function showWelcome(){

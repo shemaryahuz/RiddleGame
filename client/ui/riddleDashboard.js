@@ -1,7 +1,7 @@
 // riddles dashbord for view and operations
 
 import { question } from "readline-sync";
-import { createRiddle, deleteRiddleById, showAllRiddles, showRiddleById, updateRiddleById } from "../controllers/riddleController.js";
+import { createRiddle, deleteRiddleById, showAllRiddles, showRiddleById, updateRiddleById } from "../handlers/riddleHandler.js";
 
 
 function displayRiddlesMenu(){

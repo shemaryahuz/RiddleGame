@@ -35,7 +35,7 @@ export async function game(){
     console.log("\n== Welcome to the Riddle Game ==");
     // intialize player and level by readlin-sync.question
     const player = createPlayer();
-    const level = question("\nChoose game level (all/ multi-choices/ easy/ medium/ hard/ extra): ").toLowerCase();
+    const level = question("\nChoose game level (all/ multi-choices/ easy/ medium/ hard): ").toLowerCase();
     // validate level
     const levels = ["all", "multi-choices", "easy", "medium", "hard"];
     if (!levels.includes(level)){

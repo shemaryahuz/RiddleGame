@@ -5,7 +5,7 @@ export default class Riddle{
     // initialize riddle properties
     constructor(riddle){
         this.level = riddle.level;
-        this.id = riddle.id;
+        this.id = riddle._id;
         this.name = riddle.name;
         this.question = riddle.question;
         this.answer = riddle.answer;
