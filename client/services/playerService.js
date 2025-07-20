@@ -40,7 +40,7 @@ export async function fetchPlayerByUsername(username){
     }
 }
 
-export async function addRiddle(playerData) {
+export async function addPlayer(player) {
     // function to send new player to store on the database
 
     try{
@@ -50,7 +50,7 @@ export async function addRiddle(playerData) {
             headers: {
                 "content-type": "application/json"
             },
-            body: JSON.stringify(playerData)
+            body: JSON.stringify(player)
         };
         // send request with route of '/addPlayer'
         const response = await fetch(playerURL + "/addPlayer", request);
@@ -92,7 +92,7 @@ export async function updatePlayerScores(playerData) {
     }
     catch (err) {
         // if there is an error, log to the console
-        console.error(`Error updating riddle: ${err}`);
+        console.error(`Error updating player: ${err}`);
         return;
     }
 }

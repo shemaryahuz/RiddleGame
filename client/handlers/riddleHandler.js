@@ -24,9 +24,9 @@ export async function showAllRiddles(){
         return;
     }
     console.log("\nAll the Riddles of the Riddle Game:");
-    for (let riddle of riddles){
+    riddles.forEach(riddle => {
         showRiddle(riddle);
-    }
+    });
 }
 
 export async function showRiddleById() {
