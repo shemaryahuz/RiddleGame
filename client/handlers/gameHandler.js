@@ -11,7 +11,6 @@ function runLevel(riddles, level, player){
     console.log(`\n== Level: '${level}' ==`);
     // initialize riddle and time
     let riddle;
-    let time;
     // loop over the riddles to create riddle entity and call ask method from the player entity
     for (let r of riddles){
         // create riddle by type
