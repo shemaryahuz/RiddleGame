@@ -18,6 +18,11 @@ function showRiddle(riddle){
 export async function showAllRiddles(){
     // function to get and show all the riddles
     const riddles = await fetchAllRiddles();
+    // if riddles undefined, log to the console
+    if (!riddles){
+        console.log("Riddles not found");
+        return;
+    }
     console.log("\nAll the Riddles of the Riddle Game:");
     for (let riddle of riddles){
         showRiddle(riddle);

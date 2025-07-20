@@ -1,4 +1,4 @@
-// Functions for handling with Riddles
+// functions for fetching from riddles api
 
 // url for riddles CRUD
 const riddlesURL = "http://localhost:3000/riddles";
@@ -9,12 +9,16 @@ export async function fetchAllRiddles() {
         // get riddles from server as json string
         const riddlesResponse = await fetch(riddlesURL);
         const riddlesArr = await riddlesResponse.json();
+        // if the response is with error of not found, return undefind
+        if (riddlesArr.error){
+            return;
+        }
         return riddlesArr;
     }
     catch (err) {
         // if there is an error, log to the console
         console.error(`Error fetching riddles from the server: ${err}`);
-        return [];
+        return;
     }
 }
 
@@ -24,7 +28,7 @@ export async function fetchRiddleById(riddleId){
         // get riddle from server as json string
         const riddleResponse = await fetch(riddlesURL + "/" + riddleId);
         const riddleObj = await riddleResponse.json();
-        // if the response is with error of not found, return empty object
+        // if the response is with error of not found, return undefind
         if (riddleObj.error){
             return;
         }
