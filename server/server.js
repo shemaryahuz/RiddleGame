@@ -2,9 +2,6 @@
 
 import express from "express";
 import configRoutes from "./src/routes/configRoutes.js";
-import { fetchRiddle } from "./src/dal/riddleDAL.js";
-
-
 
 
 // initialize express application
