@@ -1,6 +1,6 @@
 // Data access layer for riddles using mongoDB database
 import { ObjectId } from "mongodb";
-import db from "../../config/riddleDB.js";
+import db from "../../database/riddleDB.js";
 
 // get access to the riddles collection in the database of mongoDB
 const riddles_collection = db.collection("riddles");
