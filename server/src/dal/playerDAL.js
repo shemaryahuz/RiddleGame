@@ -18,12 +18,13 @@ export async function fetchPlayer(username) {
     const { data, error } = await supabase
         .from("players")
         .select("*")
-        .eq("username", username);
+        .eq("username", username)
+        .maybeSingle();
     if (error){
         console.error(`Error fetching player from database: ${error}`);
         throw new Error(error.message);
     }
-    return data; // [data] | null
+    return data; // {data} | null
 }
 
 export async function insertPlayer(username){
@@ -31,66 +32,42 @@ export async function insertPlayer(username){
     const { data, error } = await supabase
         .from("players")
         .insert([{ username: username }])
-        .select();
+        .select()
+        .maybeSingle();
     if (error){
         console.error(`Error adding player to database: ${error}`);
         throw new Error(error.message);
     }
-    return data; // [inserted data] | null
+    return data; // {inserted data} | null
 }
 
-export async function fetchBestTime(username){
-    // fetch player's best time (fastest time of riddle solving)
-    const { data, error } = await supabase
-        .from("players")
-        .select("best_time")
-        .eq("username", username);
-    if (error){
-        console.error(`Error fetching best time from database: ${error}`);
-        throw new Error(error.message);
-    }
-    return data; // [data] | null
-}
-
-export async function updateBestTime(username, bestTime) {
-    // update the best time of player
-    const { data, error } = await supabase
-        .from("players")
-        .update({ best_time: bestTime })
-        .eq("username", username)
-        .select("*");
-    if (error){
-        console.error(`Error updating best time in database: ${error}`);
-        throw new Error(error.message);
-    }
-    return data; // [updated data] | null
-}
-
-export async function fetchScore(username){
+export async function fetchScores(username){
     // fetch player's score
     const { data, error } = await supabase
         .from("players")
-        .select("score")
-        .eq("username", username);
+        .select("score, best_time")
+        .eq("username", username)
+        .maybeSingle();
     if (error){
         console.error(`Error fetching score from database: ${error}`);
         throw new Error(error.message);
     }
-    return data; // [data] | null
+    return data; // [{ score: scoreValue }, { bestTime: bestTimeValue }] | null
 }
 
-export async function updateScore(username, newScore) {
+export async function updateScores(username, newScore, bestTime) {
     // update the score of player
     const { data, error } = await supabase
         .from("players")
-        .update({ score: newScore })
+        .update({ score: newScore, best_time: bestTime })
         .eq("username", username)
-        .select();
+        .select()
+        .maybeSingle();
     if (error){
         console.error(`Error updating score in database: ${error}`);
         throw new Error(error.message);
     }
-    return data; // [updated data] | null
+    return data; // {updated data} | null
 }
 
 export async function updateUsername(username, newName) {
@@ -99,12 +76,13 @@ export async function updateUsername(username, newName) {
         .from("players")
         .update({ username: newName })
         .eq("username", username)
-        .select();
+        .select()
+        .maybeSingle();
     if (error){
         console.error(`Error updating username in database: ${error}`);
         throw new Error(error.message);
     }
-    return data; // [updated data] | null
+    return data; // {updated data] | null
 }
 
 export async function deletePlayer(username) {
@@ -113,10 +91,11 @@ export async function deletePlayer(username) {
         .from("players")
         .delete()
         .eq("username", username)
-        .select();
+        .select()
+        .maybeSingle();
     if (error){
         console.error(`Error deleting player from database: ${error}`);
         throw new Error(error.message);
     }
-    return data; // [deleted data] | null
+    return data; // {deleted data} | null
 }
