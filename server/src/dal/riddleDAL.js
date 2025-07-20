@@ -1,4 +1,4 @@
-// Data access layer for riddles using mongoDB database
+// data access layer for riddles using mongoDB database
 import { ObjectId } from "mongodb";
 import db from "../../database/riddleDB.js";
 
