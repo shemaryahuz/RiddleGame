@@ -96,3 +96,31 @@ export async function updatePlayerScores(playerData) {
         return;
     }
 }
+
+export async function updatePlayerUsername(oldName, playerData) {
+    // function to update player username by oldName
+    try{
+        // create request of PUT method
+        const request = {
+            method: "PUT",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(playerData)
+        };
+        // send request with route of '/updateScores' and the PUT request
+        const response = await fetch(playerURL + "/updateUsername/" + oldName, request);
+        const responseObj = await response.json();
+        // if response without player that updated, return undefind
+        if (!responseObj.player){
+            return;
+        }
+        // if player updated return it
+        return responseObj.player;
+    }
+    catch (err) {
+        // if there is an error, log to the console
+        console.error(`Error updating player: ${err}`);
+        return;
+    }
+}
