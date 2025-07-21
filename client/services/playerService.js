@@ -124,3 +124,30 @@ export async function updatePlayerUsername(oldName, playerData) {
         return;
     }
 }
+
+export async function deletePlayer(username) {
+    // function to delete player by username
+    try{
+        // create request of DELETE method
+        const request = {
+            method: "DELETE",
+            headers: {
+                "content-type": "application/json"
+            }
+        };
+        // send request with route of '/:username' and the DELETE request
+        const response = await fetch(playerURL + "/deletePlayer/" + username, request);
+        const responseObj = await response.json();
+        // if response without succeded message, return undefind
+        if (!responseObj.message){
+            return;
+        }
+        // if player deleted return the message
+        return responseObj.message;
+    }
+    catch (err) {
+        // if there is an error, log to the console
+        console.error(`Error deleting player: ${err}`);
+        return;
+    }
+}
