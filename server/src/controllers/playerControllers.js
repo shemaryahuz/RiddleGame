@@ -1,5 +1,5 @@
 // handlers for player route
-import { fetchAllPlayers, fetchPlayer, fetchScores, insertPlayer, updateScores, updateUsername } from "../dal/playerDAL.js";
+import { deletePlayer, fetchAllPlayers, fetchPlayer, fetchScores, insertPlayer, updateScores, updateUsername } from "../dal/playerDAL.js";
 
 export async function sendAllPlayers(req, res) {
     // get the players from the database
@@ -94,5 +94,23 @@ export async function updatePlayerUsername(req, res) {
 
     } catch (error) {
         res.status(404).send({ error: `Error updating player: ${error.message}` });
+    }
+}
+
+export async function deletePlayerByUsername(req, res){
+    try {
+        // destruct username from request params
+        const { username } = req.params;
+        // delete player by username
+        const deleted = await deletePlayer(username);
+        // if not deleted, response with error message
+        if (!deleted){
+            res.status(404).send({ error: "username not found" });
+            return;
+        }
+        // response with status code of 'ok' to send succeded message
+        res.status(200).json({ message: "player deleted successfuly" });
+    } catch (error) {
+        res.status(404).json({ error: `Error deleting player: ${error.message}` });
     }
 }
