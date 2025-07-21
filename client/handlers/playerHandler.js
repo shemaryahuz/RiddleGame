@@ -1,6 +1,6 @@
 // Functions for handling with player data
 import { question } from "readline-sync"
-import { addPlayer, fetchAllPlayers, fetchPlayerByUsername } from "../services/playerService.js";
+import { addPlayer, fetchAllPlayers, fetchPlayerByUsername, updatePlayerScores } from "../services/playerService.js";
 import Player from "../models/Player.js";
 
 function showPlayer(player){
@@ -70,4 +70,19 @@ export async function getPlayer() {
         }
     }
     return new Player(player.username);
-} 
+}
+
+export async function updateScores(player) {
+    const playerData = { 
+                username: player.username,
+                score: player.score,
+                bestTime: player.bestTime
+            }
+    const updated = await updatePlayerScores(playerData);
+    if (!updated){
+        console.log("\nSomething went wrong with updating player.");
+        return;
+    }
+    console.log("\nUpdated player:");
+    showPlayer(updated);
+}
