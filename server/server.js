@@ -14,7 +14,7 @@ app.use(express.json());
 configRoutes(app);
 
 // get the port for running
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || 3000;
 
 // run the server
 app.listen(PORT, (error) => {
