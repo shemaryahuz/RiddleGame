@@ -24,7 +24,7 @@ async function handleChoice(choice) {
             await showAllRiddles();
             break;
         case "2":
-            // if option 2 was chosen, get id from the use, fetch riddle and show
+            // if option 2 was chosen, get id from the user, fetch riddle and show
             await showRiddleById();
             break;
         case "3":

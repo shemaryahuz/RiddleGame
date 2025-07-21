@@ -3,6 +3,7 @@
 import { question } from "readline-sync";
 import { game } from "../handlers/gameHandler.js";
 import { riddleDashboard } from "./riddleDashboard.js";
+import { playerDashboard } from "./playerDashboard.js";
 
 function showWelcome(){
     // Show Welcome message to the user
@@ -36,10 +37,11 @@ async function handleChoice(choice){
             await riddleDashboard();
             break;
         case "3":
-            console.log("\noption not ready yet.");
+            await playerDashboard();
+            break;
         default:
             // if user's input is invalid log to th console
-            console.log("\nInvalid choice. Try again.");
+            console.log("\nInvalid choice. Try againpp.");
     }
 }
 

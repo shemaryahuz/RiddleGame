@@ -4,7 +4,7 @@ import { question } from "readline-sync";
 import Riddle from "../models/Riddle.js";
 import ChoiceRiddle from "../models/ChoiceRiddle.js";
 import { fetchAllRiddles } from "../services/riddleService.js";
-import { getPlayer } from "./playerHandler.js";
+import { getPlayer, updateScores } from "./playerHandler.js";
 import { updatePlayerScores } from "../services/playerService.js";
 
 function runLevel(riddles, level, player){
@@ -62,12 +62,7 @@ export async function game(){
             // show player states
             player.showState(filteredRiddles);
             // update player data in the data base
-            const playerData = { 
-                username: player.username,
-                score: player.score,
-                bestTime: player.bestTime
-            }
-            await updatePlayerScores(playerData);
+            await updateScores(player);
     } catch (error) {
         console.error(`Game error: ${error.message}`);
     }

@@ -8,8 +8,9 @@ function getAverageTime(times){
     return getTotalTime(times) / times.length;
 }
 
-function calculateScore(time, hintUsed){
-    let score = 100 - time;
+function calculateScore(score, time, hintUsed){
+    score += 100;
+    score -= time;
     if (hintUsed){
         score - 20;
     }
@@ -58,7 +59,7 @@ export default class Player{
         this.hintsTaken.push(hintUsed);
 
         // calculate score
-        this.score += calculateScore(time, hintUsed);
+        this.score = calculateScore(this.score, time, hintUsed);
     };
 
     showState(riddles){
