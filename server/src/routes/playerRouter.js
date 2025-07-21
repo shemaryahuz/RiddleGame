@@ -16,7 +16,7 @@ router.get("/:username", sendPlayer);
 // if route is '/players/addPlayer' with POST method, create player
 router.post("/addPlayer", validateUsername, addNewPlayer);
 
-// if route is '/players/updateScore/:username' with PUT method, update player's best time and score
-router.put("/updateScores/", validateUsername, validateScores, updatePlayerScores);
+// if route is '/players/updateScore' with PUT method, update player's best time and score
+router.put("/updateScores", validateUsername, validateScores, updatePlayerScores);
 
 export default router;
