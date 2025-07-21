@@ -18,7 +18,7 @@ export async function showAllPlayers() {
     const players = await fetchAllPlayers();
     // if players is undefined, log to the console
     if (!players){
-        console.log("Players not found");
+        console.log("\nPlayers not found");
         return;
     }
     console.log("\nAll players:");
