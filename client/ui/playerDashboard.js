@@ -1,7 +1,7 @@
 // players dashbord for view and operations
 
 import { question } from "readline-sync";
-import { showAllPlayers, showPlayerByUsername } from "../handlers/playerHandler.js"
+import { deletePlayerByUsername, showAllPlayers, showPlayerByUsername, updateUsername } from "../handlers/playerHandler.js"
 
 function displayPlayerMenu(){
     // Display Menu options to the user and return his choice
@@ -27,11 +27,11 @@ async function handleChoice(choice) {
             break;
         case "3":
             // if option 3 was chosen, get new username and update player
-            console.log("\noption not ready yet.");
+            await updateUsername();
             break;
         case "4":
             // if option 4 was chosen, get username from the user and delete player
-            console.log("\noption not ready yet.");
+            await deletePlayerByUsername();
             break;
         default:
             // if choice is invalid, log to the console

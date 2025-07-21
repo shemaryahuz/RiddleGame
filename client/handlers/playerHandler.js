@@ -1,6 +1,6 @@
 // Functions for handling with player data
 import { question } from "readline-sync"
-import { addPlayer, fetchAllPlayers, fetchPlayerByUsername, updatePlayerScores } from "../services/playerService.js";
+import { addPlayer, deletePlayer, fetchAllPlayers, fetchPlayerByUsername, updatePlayerScores, updatePlayerUsername } from "../services/playerService.js";
 import Player from "../models/Player.js";
 
 function showPlayer(player){
@@ -85,4 +85,30 @@ export async function updateScores(player) {
     }
     console.log("\nUpdated player:");
     showPlayer(updated);
+}
+
+export async function updateUsername() {
+    const oldName = question("\nEnter current username: ");
+    const newName = question("\nEnter new username: ");
+    const playerData = { 
+                username: newName
+            }
+    const updated = await updatePlayerUsername(oldName, playerData);
+    if (!updated){
+        console.log("\nSomething went wrong with updating player.");
+        return;
+    }
+    console.log("\nUpdated player:");
+    showPlayer(updated);
+}
+
+export async function deletePlayerByUsername() {
+    const username = question("\nEnter username for deleting: ");
+    const success = await deletePlayer(username);
+    if (!success){
+        console.log("\nSomething went wrong with deleting player.");
+        return;
+    }
+    console.log();
+    console.log(success);
 }

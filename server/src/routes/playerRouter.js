@@ -1,6 +1,6 @@
 // router for endpoints of playeres route
 import express from "express";
-import { addNewPlayer, sendAllPlayers, sendPlayer, updatePlayerScores } from "../controllers/playerControllers.js";
+import { addNewPlayer, deletePlayerByUsername, sendAllPlayers, sendPlayer, updatePlayerScores, updatePlayerUsername } from "../controllers/playerControllers.js";
 import { validateScores, validateUsername } from "../middlewares/playerMiddlewares.js";
 
 
@@ -18,5 +18,11 @@ router.post("/addPlayer", validateUsername, addNewPlayer);
 
 // if route is '/players/updateScore' with PUT method, update player's best time and score
 router.put("/updateScores", validateUsername, validateScores, updatePlayerScores);
+
+// if route is '/players/updateUsername/:oldName' with PUT method, update player's username
+router.put("/updateUsername/:oldName", validateUsername, updatePlayerUsername);
+
+// if route is '/players/deletePlayer/:username' with DELETE method, delete player
+router.delete("/deletePlayer/:username", deletePlayerByUsername);
 
 export default router;
