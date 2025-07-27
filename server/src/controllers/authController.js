@@ -1,3 +1,4 @@
+// controllers for authorization routes
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { fetchPlayer, insertPlayer } from "../dal/playerDAL.js";
