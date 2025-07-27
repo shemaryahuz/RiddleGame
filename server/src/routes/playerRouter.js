@@ -39,7 +39,7 @@ router.put("/me/updateScores",
     authenticateToken,
     authorizeRole("user", "admin"),
     setMyUsernameInBody,
-    sendPlayer
+    updatePlayerScores
 );
 
 // if route is '/players/me/updateUsername' with 'PUT' method,  update username
@@ -82,18 +82,18 @@ router.post("/addPlayer",
 
 // if route is '/players/updateScore' with PUT method, update player's best time and score
 router.put("/updateScores",
-    validateUsername,
-    validateScores,
     authenticateToken, 
     authorizeRole("admin"),
+    validateUsername,
+    validateScores,
     updatePlayerScores
 );
 
 // if route is '/players/updateUsername/:oldName' with PUT method, update player's username
 router.put("/updateUsername/:oldName",
-    validateUsername,
     authenticateToken, 
     authorizeRole("admin"),
+    validateUsername,
     updatePlayerUsername
 );
 

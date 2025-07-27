@@ -39,6 +39,7 @@ export function setMyUsername(req, res, next){
         return;
     }
     req.params.username = req.player.username;
+    next();
 }
 
 export function setMyUsernameInBody(req, res, next){
@@ -47,6 +48,7 @@ export function setMyUsernameInBody(req, res, next){
         return;
     }
     req.body.username = req.player.username;
+    next();
 }
 
 export function setMyOldName(req, res, next){
@@ -55,4 +57,5 @@ export function setMyOldName(req, res, next){
         return;
     }
     req.params.oldName = req.player.username;
+    next();
 }
