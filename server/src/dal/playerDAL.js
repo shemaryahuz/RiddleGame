@@ -27,11 +27,11 @@ export async function fetchPlayer(username) {
     return data; // {data} | null
 }
 
-export async function insertPlayer(username){
+export async function insertPlayer(username, hashedPassword , role = "user"){
     // create new player in database
     const { data, error } = await supabase
         .from("players")
-        .insert([{ username: username }])
+        .insert([{ username: username, hashed_password: hashedPassword, role: role }])
         .select()
         .maybeSingle();
     if (error){
@@ -52,7 +52,7 @@ export async function fetchScores(username){
         console.error(`Error fetching score from database: ${error}`);
         throw new Error(error.message);
     }
-    return data; // [{ score: scoreValue }, { bestTime: bestTimeValue }] | null
+    return data; // { score: scoreValue, bestTime: bestTimeValue } | null
 }
 
 export async function updateScores(username, newScore, bestTime) {
