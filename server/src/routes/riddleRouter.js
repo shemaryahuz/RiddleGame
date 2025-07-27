@@ -1,8 +1,8 @@
 // router for endpoints of riddles route
 
 import express from "express";
-import { addNewRiddle, deleteRiddleById, sendAllRiddles, sendRiddle, updateRiddleById } from "../controllers/riddleControllers.js";
-import { validateRiddle, validateRiddleId } from "../middlewares/riddleMiddlewares.js";
+import { addNewRiddle, deleteRiddleById, sendAllRiddles, sendRiddle, updateRiddleById } from "../controllers/riddleController.js";
+import { validateRiddle, validateRiddleId } from "../middlewares/riddleMiddleware.js";
 
 
 // initialize router

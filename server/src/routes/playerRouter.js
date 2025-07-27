@@ -1,7 +1,7 @@
 // router for endpoints of playeres route
 import express from "express";
-import { addNewPlayer, deletePlayerByUsername, sendAllPlayers, sendPlayer, updatePlayerScores, updatePlayerUsername } from "../controllers/playerControllers.js";
-import { validateScores, validateUsername } from "../middlewares/playerMiddlewares.js";
+import { addNewPlayer, deletePlayerByUsername, sendAllPlayers, sendPlayer, updatePlayerScores, updatePlayerUsername } from "../controllers/playerController.js";
+import { validateScores, validateUsername } from "../middlewares/playerMiddleware.js";
 
 
 // initialize router
