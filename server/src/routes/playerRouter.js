@@ -2,16 +2,17 @@
 import express from "express";
 import { addNewPlayer, deletePlayerByUsername, sendAllPlayers, sendPlayer, updatePlayerScores, updatePlayerUsername } from "../controllers/playerController.js";
 import { validateScores, validateUsername } from "../middlewares/playerMiddleware.js";
+import { authenticateToken, authorizeRole } from "../middlewares/authMiddleware.js";
 
 
 // initialize router
 const router = express.Router();
 
-// if route is '/players', send all players
-router.get("/", sendAllPlayers);
+// if route is '/players' and user's role is 'admin', send all players
+router.get("/", authenticateToken, authorizeRole("admin"), sendAllPlayers);
 
-// if route is '/players/:username', send player
-router.get("/:username", sendPlayer);
+// if route is '/players/:username' and user's role is 'admin' or 'user', send player
+router.get("/:username", authenticateToken, authorizeRole("user", "admin"), sendPlayer);
 
 // if route is '/players/addPlayer' with POST method, create player
 router.post("/addPlayer", validateUsername, addNewPlayer);

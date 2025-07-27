@@ -18,7 +18,7 @@ export function authenticateToken(req, res, next) {
     }
 }
 
-export function athorizeRole(...allowedRoles) {
+export function authorizeRole(...allowedRoles) {
     // return callback with middleware for this role/roles
     return (req, res, next) => {
         if (!req.player){

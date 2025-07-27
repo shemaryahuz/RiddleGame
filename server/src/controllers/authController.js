@@ -43,6 +43,13 @@ export async function signup(req, res) {
                 res.status(400).send({ error: "username and password are required" });
                 return;
             }
+            // if role is 'admin' require admin password
+            if (role === "admin"){
+                if (password !== process.env.ADMIN_PASSWORD){
+                    res.status(403).send({ error: "you need the admin password to create admin user" });
+                    return;
+                }
+            }
             // check if username already exists
             const player = await fetchPlayer(username);
             if (player) {
