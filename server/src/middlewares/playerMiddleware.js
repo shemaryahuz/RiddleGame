@@ -30,3 +30,32 @@ export function validateScores(req, res, next){
     }
     next();
 }
+
+// middlewares for adding the current user to the requeat (to make sure he has access only to his details)
+
+export function setMyUsername(req, res, next){
+    if (!req.player){
+        res.status(401).send( { error: "authentication required" });
+        return;
+    }
+    req.params.username = req.player.username;
+    next();
+}
+
+export function setMyUsernameInBody(req, res, next){
+    if (!req.player){
+        res.status(401).send( { error: "authentication required" });
+        return;
+    }
+    req.body.username = req.player.username;
+    next();
+}
+
+export function setMyOldName(req, res, next){
+    if (!req.player){
+        res.status(401).send( { error: "authentication required" });
+        return;
+    }
+    req.params.oldName = req.player.username;
+    next();
+}
