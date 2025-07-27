@@ -1,3 +1,4 @@
+// controllers for authorization routes
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { fetchPlayer, insertPlayer } from "../dal/playerDAL.js";
@@ -17,7 +18,7 @@ export async function login(req, res) {
                 return;
             }
             // check if password is correct
-            const isValidPassword = await bcrypt.compare(password, player.hash_password);
+            const isValidPassword = await bcrypt.compare(password, player.hashed_password);
             if (!isValidPassword){
                 res.status(401).send({ error: "wrong password" });
                 return;
@@ -41,6 +42,13 @@ export async function signup(req, res) {
             if (!username || !password) {
                 res.status(400).send({ error: "username and password are required" });
                 return;
+            }
+            // if role is 'admin' require admin password
+            if (role === "admin"){
+                if (password !== process.env.ADMIN_PASSWORD){
+                    res.status(403).send({ error: "you need the admin password to create admin user" });
+                    return;
+                }
             }
             // check if username already exists
             const player = await fetchPlayer(username);
