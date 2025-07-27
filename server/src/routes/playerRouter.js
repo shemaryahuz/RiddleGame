@@ -1,29 +1,107 @@
-// router for endpoints of playeres route
+// router for endpoints of playeres route ('players/me' for 'user'/'admin',  '/players' for 'admin')
 import express from "express";
-import { addNewPlayer, deletePlayerByUsername, sendAllPlayers, sendPlayer, updatePlayerScores, updatePlayerUsername } from "../controllers/playerController.js";
-import { validateScores, validateUsername } from "../middlewares/playerMiddleware.js";
-import { authenticateToken, authorizeRole } from "../middlewares/authMiddleware.js";
+import { 
+    addNewPlayer, 
+    deletePlayerByUsername,
+    sendAllPlayers,
+    sendPlayer,
+    updatePlayerScores,
+    updatePlayerUsername 
+} from "../controllers/playerController.js";
+
+import { 
+    setMyOldName,
+    setMyUsername,
+    setMyUsernameInBody,
+    validateScores,
+    validateUsername 
+} from "../middlewares/playerMiddleware.js";
+
+import { 
+    authenticateToken,
+    authorizeRole 
+} from "../middlewares/authMiddleware.js";
 
 
 // initialize router
 const router = express.Router();
 
+// if route is '/players/me' send user his owm details
+router.get("/me",
+    authenticateToken,
+    authorizeRole("user", "admin"),
+    setMyUsername,
+    sendPlayer
+);
+
+// if route is '/players/me/updateScores' with 'PUT' method,  update user's scores
+router.put("/me/updateScores",
+    authenticateToken,
+    authorizeRole("user", "admin"),
+    setMyUsernameInBody,
+    sendPlayer
+);
+
+// if route is '/players/me/updateUsername' with 'PUT' method,  update username
+router.put("/me/updateUsername",
+    authenticateToken,
+    authorizeRole("user", "admin"),
+    setMyOldName,
+    updatePlayerUsername
+);
+
+// if route is '/players/me/deletePlayer' with DELETE method, delete player
+router.delete("/me/deletePlayer",
+    authenticateToken,
+    authorizeRole("user", "admin"),
+    setMyUsername,
+    deletePlayerByUsername
+);
+
 // if route is '/players' and user's role is 'admin', send all players
-router.get("/", authenticateToken, authorizeRole("admin"), sendAllPlayers);
+router.get("/", 
+    authenticateToken, 
+    authorizeRole("admin"),
+    sendAllPlayers
+);
 
 // if route is '/players/:username' and user's role is 'admin' or 'user', send player
-router.get("/:username", authenticateToken, authorizeRole("user", "admin"), sendPlayer);
+router.get("/:username",
+    authenticateToken,
+    authorizeRole("admin"),
+    sendPlayer
+);
 
 // if route is '/players/addPlayer' with POST method, create player
-router.post("/addPlayer", validateUsername, addNewPlayer);
+router.post("/addPlayer",
+    authenticateToken, 
+    authorizeRole("admin"),
+    validateUsername,
+    addNewPlayer
+);
 
 // if route is '/players/updateScore' with PUT method, update player's best time and score
-router.put("/updateScores", validateUsername, validateScores, updatePlayerScores);
+router.put("/updateScores",
+    validateUsername,
+    validateScores,
+    authenticateToken, 
+    authorizeRole("admin"),
+    updatePlayerScores
+);
 
 // if route is '/players/updateUsername/:oldName' with PUT method, update player's username
-router.put("/updateUsername/:oldName", validateUsername, updatePlayerUsername);
+router.put("/updateUsername/:oldName",
+    validateUsername,
+    authenticateToken, 
+    authorizeRole("admin"),
+    updatePlayerUsername
+);
 
 // if route is '/players/deletePlayer/:username' with DELETE method, delete player
-router.delete("/deletePlayer/:username", deletePlayerByUsername);
+router.delete("/deletePlayer/:username",
+    authenticateToken, 
+    authorizeRole("admin"),
+    deletePlayerByUsername
+);
 
 export default router;
