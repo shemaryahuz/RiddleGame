@@ -1,7 +1,7 @@
-// middleware for authentication with request token
+// middleware for authentication and authorization with request token
 import jwt from "jsonwebtoken";
 
-export function requireAuth(req, res, next) {
+export function authenticateToken(req, res, next) {
     try {
         // destruct token from the request's headers
         const token = req.headers.authorization;
@@ -18,11 +18,17 @@ export function requireAuth(req, res, next) {
     }
 }
 
-export async function requireAdmin(req, res, next) {
-    // check admin role
-    if (req.player?.role !== "admin"){
-        res.status(403).send({ error: "admin access required" });
-        return;
+export function athorizeRole(...allowedRoles) {
+    // return callback with middleware for this role/roles
+    return (req, res, next) => {
+        if (!req.player){
+            res.status(401).send({ error: "authentication required" });
+            return;
+        }
+        if (!allowedRoles.includes(req.player.role)){
+            res.status(403).send({ error: "no access for this action" });
+            return;
+        }
+        next();
     }
-    next();
 }

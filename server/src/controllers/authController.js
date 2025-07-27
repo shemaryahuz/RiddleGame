@@ -18,7 +18,7 @@ export async function login(req, res) {
                 return;
             }
             // check if password is correct
-            const isValidPassword = await bcrypt.compare(password, player.hash_password);
+            const isValidPassword = await bcrypt.compare(password, player.hashed_password);
             if (!isValidPassword){
                 res.status(401).send({ error: "wrong password" });
                 return;

@@ -1,9 +1,13 @@
+import authRouter from "./authRoter.js";
 import riddleRouter from "./riddleRouter.js";
 import playerRouter from "./playerRouter.js";
 
 // configuration of apllication's routes
 export default function configRoutes(app){
     
+    // if route is '/auth/' run the auth router
+    app.use("/auth", authRouter); 
+
     // if route is '/riddles' run the riddle router
     app.use("/riddles", riddleRouter);
 
