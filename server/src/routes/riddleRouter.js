@@ -59,7 +59,7 @@ router.put("/:riddleId",
 // if route is '/riddles/:riddleId' with DELETE method, delete the riddle by id
 router.delete("/:riddleId",
     authenticateToken,
-    authorizeRole("user", "admin"),
+    authorizeRole("admin"),
     validateRiddleId,
     deleteRiddleById
 );
