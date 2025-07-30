@@ -2,9 +2,8 @@
 
 const authURL = "http://localhost:3000/auth";
 
-export async function login(username, password) {
+export async function login(userData) {
     try {
-        const userData = { username, password };
         const request = {
             method: "POST",
             headers: {
@@ -26,9 +25,8 @@ export async function login(username, password) {
     }
 }
 
-export async function signup(username, password) {
+export async function signup(userData) {
     try {
-        const userData = { username, password };
         const request = {
             method: "POST",
             headers: {
@@ -42,7 +40,7 @@ export async function signup(username, password) {
             console.log("authentication denied");
             return;
         }
-        return responseObj.token;
+        return responseObj;
 
     } catch (error) {
         console.error(`Error signup player: ${error}`);
